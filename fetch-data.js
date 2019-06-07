@@ -9,6 +9,9 @@
  * See: 
  * https://www.npmjs.com/package/libnpmsearch
  * 
+ * Using:
+ * https://www.npmjs.com/package/got
+ * 
  * 
  */
 const search = require("libnpmsearch");
@@ -160,7 +163,7 @@ const topPkg = ["lodash","request","chalk","react","express","commander","moment
   try {
     con.connect(function(err) {
       if (err) throw err;
-      
+
       topPkg.forEach(pkg => {
         fetchAndSave(pkg);
       });    
