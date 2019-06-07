@@ -47,7 +47,6 @@ async function fetchTopRepos(offset) {
           if(err) {
               return console.log(err);
           }
-          //console.log("The file was saved!");
         }); 
         // console.log(response.body);
     } catch (error) {
@@ -55,11 +54,13 @@ async function fetchTopRepos(offset) {
     }
   }
 
+  //
+  // We can only bring 3 pages due to npmjs.com limitation
+  //
   for (let j = 0; j < 100; j=j+36) {
     (async () => {
       try {
-        await fetchTopRepos(j);
-        
+        await fetchTopRepos(j);    
       } catch (error) {
         console.log(error.response.body);
       }
