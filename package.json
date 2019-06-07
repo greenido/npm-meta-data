@@ -1,0 +1,24 @@
+{
+  "name": "npm-meta-data",
+  "version": "1.0.0",
+  "description": "fetch the top packages from npm and find/save all the tags/keywords",
+  "main": "fetch-data.js",
+  "dependencies": {
+    "libnpmsearch": "^2.0.0",
+    "mysql": "^2.17.1",
+    "got": "^9.6.0",
+    "npm-keyword": "^6.1.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "npm",
+    "tags",
+    "keywords",
+    "until"
+  ],
+  "author": "Ido Green",
+  "license": "MIT"
+}
