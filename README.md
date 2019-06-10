@@ -30,7 +30,9 @@ For example, answer questions like:
 
 # SQLs
 
-Use the magic below to quickly break the 'keywords' field into its own table.
+To create the tables: https://github.com/greenido/npm-meta-data/blob/master/meta-data.sql
+
+...and use the magic below to quickly break the 'keywords' field into its own table.
 It will work only up to 6 (as other fields won't have 6 tags) - So use something better if you wish to have 100% of the tags/keywords.
 
 ```
