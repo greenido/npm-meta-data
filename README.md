@@ -17,10 +17,11 @@ ON DUPLICATE KEY UPDATE howMany = howMany + 1;
 
 ## TODO
 
-* [ ] Check how to fetch all: https://gist.github.com/anvaka/8e8fa57c7ee1350e3491
-* [ ] Mysql instance in GCP.
-* [ ] Parse the keyword field and normalize the words to another table (keywords).
-* [ ] Bind the data to another source.
+* [ ] Check how to merge the data with Artifactory.
+* [ ] Build a Docker image for all this code.
+* [x] Fetch all the 1000s pkgs: https://gist.github.com/anvaka/8e8fa57c7ee1350e3491
+* [x] Mysql instance in GCP.
+* [x] Parse the keyword field and normalize the words to another table (keywords).
 
 ## 🐠 
 
