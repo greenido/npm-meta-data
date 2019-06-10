@@ -1,4 +1,4 @@
-# npm meta data
+# npm (packages) meta data
 
 ## Motivation
 Enble developers to search/manage packages by their meta-data.
