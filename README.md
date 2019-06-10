@@ -3,8 +3,10 @@
 ## Motivation
 Enble developers to search/manage packages by their meta-data.
 For example, answer questions like:
-- "Which packages/libraries in my organization are using for *Authentication* ?"
-- "What are the crpto pkg that developers are using?"
+- "Which packages/libraries in my organization are being used for *Authentication*?"
+- "What are the *crpto* packages that developers are using in production?"
+- "What are the leading CLI packages?"
+
 
 ## Description
 1. Fetch npm pkg meta-data and save it to a DB for the future (e.g. integrations with Xray/Artifactory)
