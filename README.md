@@ -1,4 +1,4 @@
-# npm-meta-data
+# npm meta data
 
 ## Motivation
 Enble developers to search/manage packages by their meta-data.
@@ -10,6 +10,10 @@ For example, answer questions like:
 1. Fetch npm pkg meta-data and save it to a DB for the future (e.g. integrations with Xray/Artifactory)
 2. This is just a prof-of-concept --> We could later take it to many other technologies (e.g. Go, Java etc')
 3. The scripts here fetch the *top* packages and use npm-search to bring more _similar_ packages. All the packages are stored with their tags/keywords.
+
+## Data
+1. In order _play_ with the current data we already fetch and stored use: https://github.com/greenido/npm-meta-data/blob/master/npm_pkgs.sql.zip 
+2. Import it to MySQL
 
 ## TODO
 
