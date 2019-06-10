@@ -14,9 +14,13 @@
  * 
  * 
  */
-const search = require("libnpmsearch");
+const search = require('libnpmsearch');
 const mysql = require('mysql');
+const fs = require('fs');
 
+// Sst the DB conf.
+// TODO: move it to .env
+//
 var con = mysql.createConnection({
   host: "localhost",
   user: "root",
@@ -26,7 +30,7 @@ var con = mysql.createConnection({
 });
 
 //
-//
+// Unit testing the DB
 //
 function dbConnectionUnitTest() {
   con.connect(function(err) {
@@ -41,9 +45,13 @@ function dbConnectionUnitTest() {
 }
 
 //
-//
+// Always clean the data before pushing it to the DB
 //
 function mysql_real_escape_string (str) {
+  if (str === undefined || str === null) {
+    return "";
+  }
+
   return str.replace(/[\0\x08\x09\x1a\n\r"'\\\%]/g, function (char) {
       switch (char) {
           case "\0":
@@ -62,8 +70,7 @@ function mysql_real_escape_string (str) {
           case "'":
           case "\\":
           case "%":
-              return "\\"+char; // prepends a backslash to backslash, percent,
-                                // and double/single quotes
+              return "\\"+char; // prepends a backslash to backslash, percent and double/single quotes
       }
   });
 }
@@ -108,18 +115,15 @@ async function saveRecord(repoData) {
             "'Inserted: " + new Date() + "'" + ")";
         }
         console.log("** SQL: " + sql);
-
-          con.query(sql, function (err, result) {
-            if (err) {
-              console.log("Opps... on res: " + result + " | Err: "+ err);
-            }
-            else {
-              console.log("saveRecord() 👑 1 record inserted. Res.affectedRows: " + result.affectedRows);
-            }
-            
-          });
+        con.query(sql, function (err, result) {
+          if (err) {
+            console.log("Opps... on res: " + result + " | Err: "+ err);
+          }
+          else {
+            console.log(new Date() + " -- saveRecord() 👑 1 record inserted. Res.affectedRows: " + result.affectedRows);
+          }
+        });
       }
-      console.log("saveRecord() 👑 1 record inserted");
     });
     
 }
@@ -146,7 +150,10 @@ async function fetchAndSave(keyword) {
 // Start the party
 //
 
-const topPkg = ["lodash","request","chalk","react","express","commander","moment","debug","async","prop-types","react-dom","bluebird","fs-extra","tslib","axios",
+//
+// Got these from  https://www.npmjs.com/browse/depended - but the limit it to 100
+//
+/*const topPkg = ["lodash","request","chalk","react","express","commander","moment","debug","async","prop-types","react-dom","bluebird","fs-extra","tslib","axios",
 "underscore","uuid","mkdirp","classnames","vue","body-parser","glob","yargs","webpack","rxjs","colors","babel-runtime","inquirer","jquery","minimist","babel-core",
 "aws-sdk","yeoman-generator","core-js","through2","dotenv","redux","babel-loader","semver","winston","q","cheerio","typescript","eslint","rimraf","css-loader","@types/node",
 "@angular/core","react-redux","shelljs","style-loader","js-yaml","@angular/common","zone.js","node-fetch","babel-eslint","ramda","gulp","object-assign","file-loader","babel-polyfill",
@@ -158,18 +165,27 @@ const topPkg = ["lodash","request","chalk","react","express","commander","moment
 "gulp-util","handlebars","eslint-plugin-import","@babel/runtime","mocha","mongodb","@angular/forms","eslint-plugin-react","@angular/platform-browser-dynamic","superagent","url-loader",
 "@angular/http","jsonwebtoken","webpack-dev-server","joi","@angular/router","node-sass","socket.io","redis","html-webpack-plugin","ora","immutable","postcss-loader","chai","ws","yosay","ejs",
 "ember-cli-babel","autoprefixer","xml2js","bootstrap","coffee-script","morgan","styled-components","path","@babel/core","react-router-dom","cookie-parser","reflect-metadata","jest","sass-loader"];
+*/
 
 (async () => {
   try {
     con.connect(function(err) {
-      if (err) throw err;
+      if (err) {
+        console.log("😥 Error in db connection: " + err);
+        throw err;
+      }
 
-      topPkg.forEach(pkg => {
-        fetchAndSave(pkg);
-      });    
+      // read the repo from a CSV file
+      const fileName = "top1000_most_dependencies.csv";
+      //"top1000_highest_page_rank.csv"; 
+      //"top1000_depended_packages.csv";
+      fs.readFile(fileName, 'utf8', function (err, data) {
+        const topPkg = data.split(", "); 
+        topPkg.forEach(pkg => {
+          fetchAndSave(pkg);
+        }); 
+      })   
     });
-
-    
   } catch (error) {
       console.log(error.response.body);
   }
