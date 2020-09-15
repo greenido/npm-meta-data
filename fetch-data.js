@@ -23,9 +23,9 @@ const fs = require('fs');
 //
 var con = mysql.createConnection({
   host: "localhost",
-  user: "root",
-  password: "root",
-  port: "8889",
+  user: "TODO:PUT-YOUR-OWN",
+  password: "TODO:PUT-YOUR-OWN",
+  port: "88",
   database: "npm_pkgs"
 });
 
